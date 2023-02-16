@@ -1,0 +1,46 @@
+server:
+  port: 8082
+spring:
+  kafka:
+    producer:
+      properties:
+        max:
+          in:
+            flight:
+              requests:
+                per:
+                  connection: 1
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      group-id: helloworld
+    listener:
+      ack-mode: RECORD
+  mvc:
+    view:
+      prefix: /view/
+      suffix: .jsp
+  profiles:
+    active: dev
+  main:
+    banner-mode: 'off'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: 'jdbc:mysql://localhost:3306/books?serverTimezone=UTC'
+    username: root
+    password: change-me
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: false
+    generate-ddl: false
+kafka:
+  bootstrap-servers: 'localhost:9092'
+  consumergroup: requestreplygorup
+  topic:
+    requestreply-topic: requestreply-topic
+    request-topic: request-topic
+    create-entry-topic: create-entry-topic

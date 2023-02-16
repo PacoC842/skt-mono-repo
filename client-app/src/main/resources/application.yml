@@ -1,0 +1,19 @@
+#kafka:
+#  groupId: demo
+#  topic: topic-for-demo
+#  bootstrapAddress: localhost:9092
+#endpointServer: http://localhost:8888/test
+#timeout: '15000'
+
+endpointServer: http://localhost:8082/test
+
+server:
+  port: 8084
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  kafka:
+    bootstrap-servers: localhost:9092
