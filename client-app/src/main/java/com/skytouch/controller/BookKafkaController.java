@@ -28,16 +28,19 @@ public class BookKafkaController {
     @CrossOrigin
     @GetMapping("/books")
     public ResponseEntity<List<Book>> test1() {
-
         List<Book> books = new ArrayList<>();
-        books.add(new Book(10, "book1", "asdf"));
-        books.add(new Book(10, "book2", "asdf"));
+
         try {
             books = syncKafkaService.getKafkaUtil();
+            log.info("books state {}", books);
         } catch (TimeoutException e) {
-            return new ResponseEntity<>(HttpStatus.GATEWAY_TIMEOUT);
+            log.info("getBooks() Timeout exception: {}", e.getMessage());
+            books.add(new Book(0,"error","error"));
+            return new ResponseEntity<>(books, HttpStatus.OK);
         }
         ResponseEntity<List<Book>> responseEntity = new ResponseEntity<>(books, HttpStatus.OK);
+
+        log.info("books state 1 {}", books);
         return responseEntity;
     }
 }

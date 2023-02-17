@@ -21,13 +21,7 @@ public class RestController {
 
     @PostMapping("/test")
     public Booklist test(@RequestBody RequestDto request) {
-
         bookService.getAll();
-
-        System.out.println("pl2j407 " + request);
-        System.out.println("pl2j407 id" + request.getRequestId());
-        System.out.println("pl2j407 date" + request.getData());
-
         return bookService.getAll();
     }
 

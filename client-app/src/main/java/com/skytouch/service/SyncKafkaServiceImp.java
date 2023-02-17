@@ -77,7 +77,7 @@ public class SyncKafkaServiceImp implements SyncKafkaService {
 
         sendTextThruKafka(requestId.toString());
 
-        System.out.println("kafka response from server: " + " POC, UUID " + requestId.toString()/*responseFromServer*/);
+        System.out.println("UUID: " + requestId.toString()/*responseFromServer*/);
 
         Thread thread = senderReceiverMap.add(requestId, timeout);
         thread.start();

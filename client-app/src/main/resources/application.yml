@@ -17,3 +17,7 @@ spring:
       - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
   kafka:
     bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    org.apache.kafka.clients: error

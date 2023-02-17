@@ -13,15 +13,16 @@ import HelloWorld from './components/HelloWorld.vue'</script>
   <main>
     <HelloWorld msg="Create Book"/>
     <!--    <TheWelcome />-->
-    <form action="http://localhost:8084/create-book-entry" method="post" target="_self">
-      <label for="fname">Book name: </label>
-      <input id="fname" name="fname" type="text"><br><br>
-      <label for="lname">Book Author: </label>
-      <input id="lname" name="lauthor" type="text"><br><br>
-      <label for="lid">Book Id: </label>
-      <input id="lid" name="lid" type="text"><br><br>
-      <input type="submit" value="Submit">
-    </form>
+
+    <label for="fname">Book name: </label>
+    <input id="fname" value="john" name="fname" type="text"><br><br>
+    <label for="lname">Book Author: </label>
+    <input id="lname" value="smith" name="lauthor" type="text"><br><br>
+    <label for="lid">Book Id: </label>
+    <input id="lid"  name="lid" type="text"><br><br>
+    <!--      <input type="submit" value="Submit">-->
+    <button v-on:click="doStuff()">Submit</button>
+
   </main>
 </template>
 
@@ -55,5 +56,34 @@ header {
 </style>
 
 <script>
+export default {
+  methods: {
+    doStuff() {
+      let fname = document.getElementById('fname').value;
+      let lauthor = document.getElementById('lname').value;
+      let lid = document.getElementById('lid').value;
 
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          fname: fname,
+          lauthor: lauthor,
+          lid: lid
+        })
+      };
+      console.log("before fetch")
+      console.log(requestOptions)
+      fetch("http://localhost:8084/create-book-entry", requestOptions)
+          .then(response => { //https://jasonwatmore.com/post/2020/04/30/vue-fetch-http-post-request-examples
+            console.log("response")
+            alert("Success")
+          })
+          .catch(error => {
+            console.error("There was an EError!");
+            alert("there was an error processing the request")
+          });
+    }
+  }
+}
 </script>
