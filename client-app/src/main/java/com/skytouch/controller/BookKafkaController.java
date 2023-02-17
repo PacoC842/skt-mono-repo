@@ -26,17 +26,6 @@ public class BookKafkaController {
     }
 
     @CrossOrigin
-    @RequestMapping("/books-poc")
-    public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException, ExecutionException {
-
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(10, "book1", "asdf"));
-        books.add(new Book(10, "book2", "asdf"));
-        ResponseEntity<List<Book>> responseEntity = new ResponseEntity<>(books, HttpStatus.OK);
-        return responseEntity;
-    }
-
-    @CrossOrigin
     @GetMapping("/books")
     public ResponseEntity<List<Book>> test1() {
 
