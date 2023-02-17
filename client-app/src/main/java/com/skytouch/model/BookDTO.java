@@ -1,12 +1,13 @@
-package com.skytouch.controller;
+package com.skytouch.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class BookDTO {
 
 
-        public BookDTO(){}
         String fname;
         String lauthor;
         String lid;

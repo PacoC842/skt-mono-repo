@@ -3,7 +3,7 @@ package com.skytouch.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skytouch.model.Book;
-import com.skytouch.service.BookService;
+import com.skytouch.model.BookDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,14 +18,13 @@ import java.io.IOException;
 @Slf4j
 public class CreateBookController {
 
-    @Autowired
-    final KafkaTemplate kafkaTemplate;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    BookService bookService;
 
-    public CreateBookController(KafkaTemplate kafkaTemplate, BookService bookService) {
+    private KafkaTemplate kafkaTemplate;
+    private ObjectMapper objectMapper;
+
+    public CreateBookController(KafkaTemplate kafkaTemplate, ObjectMapper objectMapper) {
         this.kafkaTemplate = kafkaTemplate;
-        this.bookService = bookService;
+        this.objectMapper = objectMapper;
     }
 
     @CrossOrigin
@@ -45,7 +44,7 @@ public class CreateBookController {
         String name = bookDto.getFname();
         String author = bookDto.getLauthor();
         log.info("my parameters are {}, {}, {}", id, name, author);
-        this.kafkaTemplate.send("create-entry-topic", new Book(id, name, author));
+        kafkaTemplate.send("create-entry-topic", new Book(id, name, author));
         return "success";
     }
 

@@ -6,12 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Configuration
 public class SenderReceiverConfig {
     @Bean
     @Scope("singleton")
     public SenderReceiverMap<UUID, String> senderReceiverMap() {
-        return new SenderReceiverMap<>();
+        return new SenderReceiverMap<UUID, String>(new ConcurrentHashMap<>());
     }
 }

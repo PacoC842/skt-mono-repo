@@ -6,8 +6,8 @@ import java.util.concurrent.ConcurrentMap;
 public class SenderReceiverMap<T, V> {
     private final ConcurrentMap<T, SenderReceiver> senderReceiverConcurrentMap;
 
-    public SenderReceiverMap() {
-        senderReceiverConcurrentMap = new ConcurrentHashMap<>();
+    public SenderReceiverMap(ConcurrentMap<T, SenderReceiver> senderReceiverConcurrentMap) {
+        this.senderReceiverConcurrentMap = senderReceiverConcurrentMap;
     }
 
     public Thread add(T id) {
@@ -20,6 +20,7 @@ public class SenderReceiverMap<T, V> {
         Runnable task = responseWait::receive;
         return new Thread(task);
     }
+
     public SenderReceiver<V> get(T id) {
         return senderReceiverConcurrentMap.get(id);
     }

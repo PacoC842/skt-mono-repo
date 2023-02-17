@@ -40,94 +40,19 @@ public class SyncKafkaServiceImp implements SyncKafkaService {
         this.senderReceiverMap = senderReceiverMap;
     }
 
-    public String get(String text) throws TimeoutException {
-
+    public List<Book> getKafkaUtil() throws Exception {
         UUID requestId = UUID.randomUUID();
-        while (senderReceiverMap.containsKey(requestId)) {
-            requestId = UUID.randomUUID();
-        }
-
-        String responseFromServer = this.sendText(requestId, text);
-
-        System.out.println("REST response from server: " + responseFromServer);
-
-        Thread thread = senderReceiverMap.add(requestId, timeout);
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String responseKafka;
-        try {
-            responseKafka = senderReceiverMap.get(requestId).getData();
-        } catch (TimeoutException e) {
-            throw e;
-        } finally {
-            senderReceiverMap.remove(requestId);
-        }
-        return responseKafka;
-    }
-
-    public List<Book> getKafkaUtil() throws TimeoutException {
-        UUID requestId = UUID.randomUUID();
-        while (senderReceiverMap.containsKey(requestId)) {
-            requestId = UUID.randomUUID();
-        }
-
         sendTextThruKafka(requestId.toString());
-
-        System.out.println("UUID: " + requestId.toString()/*responseFromServer*/);
-
         Thread thread = senderReceiverMap.add(requestId, timeout);
         thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String responseKafka;
-        try {
-            responseKafka = senderReceiverMap.get(requestId).getData();
-        } catch (TimeoutException e) {
-            throw e;
-        } finally {
-            senderReceiverMap.remove(requestId);
-        }
-        List<Book> books;
-        try {
-            books = objectMapper.readValue(responseKafka, List.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return books;
-    }
-
-    private String sendText(final UUID requestId, final String text) {
-        RestTemplate restTemplate = new RestTemplate();
-        System.out.println(text + "pl2j407407");
-
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String requestJsonStr = null;
-
-        try {
-            requestJsonStr = new ObjectMapper().writeValueAsString(new RequestDto(requestId, text));
-            System.out.println(requestJsonStr + "requestJsonStr pl2j407");
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        HttpEntity<String> request = new HttpEntity<>(requestJsonStr, headers);
-        return restTemplate.postForObject(endpointServer, request, String.class);
+        thread.join();
+        String responseKafka = senderReceiverMap.get(requestId).getData();
+        return objectMapper.readValue(responseKafka, List.class);
     }
 
     private String sendTextThruKafka(String requestId) {
         ProducerRecord<String, String> record = new ProducerRecord("habr-topic", "test");
         record.headers().add(new RecordHeader("kafka_replyTopic", hbrTopic.getBytes()));
-
-
         kafkaTemplate.send(hbrTopic, requestId);
         return "message sent";
     }

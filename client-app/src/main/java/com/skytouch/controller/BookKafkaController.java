@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -27,20 +28,14 @@ public class BookKafkaController {
 
     @CrossOrigin
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> test1() {
-        List<Book> books = new ArrayList<>();
-
+    public ResponseEntity<List<Book>> getBooks() {
         try {
-            books = syncKafkaService.getKafkaUtil();
+            List<Book> books = syncKafkaService.getKafkaUtil();
             log.info("books state {}", books);
-        } catch (TimeoutException e) {
-            log.info("getBooks() Timeout exception: {}", e.getMessage());
-            books.add(new Book(0,"error","error"));
             return new ResponseEntity<>(books, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("getBooks() Timeout exception: {}", e.getMessage());
+            return new ResponseEntity<>(Arrays.asList(new Book(0,"error","error")), HttpStatus.OK);
         }
-        ResponseEntity<List<Book>> responseEntity = new ResponseEntity<>(books, HttpStatus.OK);
-
-        log.info("books state 1 {}", books);
-        return responseEntity;
     }
 }
