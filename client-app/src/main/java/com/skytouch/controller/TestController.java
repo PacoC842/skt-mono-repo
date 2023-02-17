@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 
 @RestController
 public class TestController {
@@ -18,13 +16,13 @@ public class TestController {
         this.bookService = bookService;
     }
 
-    @RequestMapping({ "/home-1"})
+    @RequestMapping({"/home-1"})
     public String getHello() {
         return "hello";
     }
 
     @GetMapping({"/books-rest"})
-    public Booklist getBooks(){
+    public Booklist getBooks() {
         bookService.getBooksRest();
         return bookService.getBooksRest();
     }

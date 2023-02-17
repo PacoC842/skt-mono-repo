@@ -1,48 +1,47 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
+import HelloWorld from './components/HelloWorld.vue'</script>
 
 <template>
   <header>
 
 
-
   </header>
 
   <main>
-    <div  >
+    <div>
       <br>
       <br>
 
-      <HelloWorld msg="List Books" />
+      <HelloWorld msg="List Books"/>
       <br>
       <br>
       <br>
 
-      <a   href="index.html"><img alt="Vue logo" class="logo" src="./assets/logo.svg" height="125" /></a>
+      <a href="index.html"><img alt="Vue logo" class="logo" height="125" src="./assets/logo.svg"/></a>
       <!--    <TheWelcome />-->
       <div v-for="item in listItems">
         <h5>
-          Book: {{item.name}} <br> Author: {{item.author}}
+          Book: {{ item.name }} <br> Author: {{ item.author }}
         </h5>
       </div>
     </div>
   </main>
 </template>
 
-<style >
+<style>
 
-div{
+div {
 
 }
+
 h5 {
   /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border: 10px;
   margin: 10px;
 }
+
 header {
   line-height: 1.5;
 }

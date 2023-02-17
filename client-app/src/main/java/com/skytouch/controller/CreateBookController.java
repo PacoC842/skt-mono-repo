@@ -32,11 +32,11 @@ public class CreateBookController extends HttpServlet {
     @PostMapping(value = "/create-book-entry")
     public ResponseEntity<String> createBookA(HttpServletRequest request) {
         log.info("pl2j407");
-        String idTmp =request.getParameter("lid");
+        String idTmp = request.getParameter("lid");
         int id;
         try {
             id = Integer.valueOf(idTmp);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<String>("<a href=\"http://localhost:5173/index.html\"><h1>Error processing request</h1></a>", HttpStatus.OK);
         }
         String name = request.getParameter("fname");

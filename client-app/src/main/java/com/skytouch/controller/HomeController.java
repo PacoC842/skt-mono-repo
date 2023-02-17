@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    @RequestMapping({ "/home"})
+    @RequestMapping({"/home"})
     public String home() {
         return "home.jsp";
     }
 
-    @GetMapping({ "/error"})
+    @GetMapping({"/error"})
     public String error() {
         return "error";
     }

@@ -1,27 +1,25 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
+import HelloWorld from './components/HelloWorld.vue'</script>
 
 <template>
   <header>
-    <a href="books.html"><img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /></a>
+    <a href="books.html"><img alt="Vue logo" class="logo" height="125" src="./assets/logo.svg" width="125"/></a>
 
     <div class="wrapper">
-<!--      <HelloWorld msg="Crear libro!" />-->
+      <!--      <HelloWorld msg="Crear libro!" />-->
     </div>
   </header>
 
   <main>
-    <HelloWorld msg="Create Book" />
-<!--    <TheWelcome />-->
-    <form  action="http://localhost:8084/create-book-entry" method="post" target="_self">
+    <HelloWorld msg="Create Book"/>
+    <!--    <TheWelcome />-->
+    <form action="http://localhost:8084/create-book-entry" method="post" target="_self">
       <label for="fname">Book name: </label>
-      <input type="text" id="fname" name="fname"><br><br>
+      <input id="fname" name="fname" type="text"><br><br>
       <label for="lname">Book Author: </label>
-      <input type="text" id="lname" name="lauthor"><br><br>
+      <input id="lname" name="lauthor" type="text"><br><br>
       <label for="lid">Book Id: </label>
-      <input type="text" id="lid" name="lid"><br><br>
+      <input id="lid" name="lid" type="text"><br><br>
       <input type="submit" value="Submit">
     </form>
   </main>
@@ -56,6 +54,6 @@ header {
 }
 </style>
 
-<script >
+<script>
 
 </script>
