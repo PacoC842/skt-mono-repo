@@ -37,12 +37,12 @@ public class CreateBookController extends HttpServlet {
         try {
             id = Integer.valueOf(idTmp);
         } catch (Exception e){
-            return new ResponseEntity<String>("<a href=\"http://localhost:5174/index.html\"><h1>Error processing request</h1></a>", HttpStatus.OK);
+            return new ResponseEntity<String>("<a href=\"http://localhost:5173/index.html\"><h1>Error processing request</h1></a>", HttpStatus.OK);
         }
         String name = request.getParameter("fname");
         String author = request.getParameter("lauthor");
         log.info("my parameters are {}, {}, {}", id, name, author);
         this.kafkaTemplate.send("create-entry-topic", new Book(id, name, author));
-        return new ResponseEntity<String>("<a href=\"http://localhost:5174/index.html\"><h1>success</h1></a>", HttpStatus.OK);
+        return new ResponseEntity<String>("<a href=\"http://localhost:5173/index.html\"><h1>success</h1></a>", HttpStatus.OK);
     }
 }

@@ -23,7 +23,7 @@ public class TestController {
         return "hello";
     }
 
-    @GetMapping({"/books"})
+    @GetMapping({"/books-rest"})
     public Booklist getBooks(){
         bookService.getBooksRest();
         return bookService.getBooksRest();

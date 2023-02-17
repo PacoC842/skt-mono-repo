@@ -2,20 +2,7 @@ server:
   port: 8082
 spring:
   kafka:
-    producer:
-      properties:
-        max:
-          in:
-            flight:
-              requests:
-                per:
-                  connection: 1
-    consumer:
-      enable-auto-commit: false
-      auto-offset-reset: earliest
-      group-id: helloworld
-    listener:
-      ack-mode: RECORD
+    bootstrap-servers: 'localhost:9092'
   mvc:
     view:
       prefix: /view/
@@ -39,8 +26,9 @@ spring:
     generate-ddl: false
 kafka:
   bootstrap-servers: 'localhost:9092'
-  consumergroup: requestreplygorup
+  consumergroup: demo
   topic:
     requestreply-topic: requestreply-topic
     request-topic: request-topic
     create-entry-topic: create-entry-topic
+    topic-for-demo: topic-for-demo
