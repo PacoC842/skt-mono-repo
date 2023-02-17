@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        System.out.println("Hello!");
 //        String superSecretId = "f000aa01-0451-4000-b000-000000000000";
         String superSecretId = "e7fbca90-2e7a-436b-a2d4-205343a2caf6";
 
